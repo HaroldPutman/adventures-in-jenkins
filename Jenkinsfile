@@ -11,7 +11,7 @@ pipeline {
     }
     stage('build') {
       when {
-        expression { return env.BRANCH_NAME ==~ /^release-/ }
+        branch 'release-*'
       }
       steps {
         echo "This is a release build."
