@@ -12,15 +12,10 @@ pipeline {
     stage('build') {
       when {
         branch 'release-*'
-      }
-      steps {
-        echo "This is a release build."
-      }
-      when {
         branch 'dev'
       }
       steps {
-        echo "This is a dev build."
+        echo "This is a dev or release build."
       }
     }
   }
