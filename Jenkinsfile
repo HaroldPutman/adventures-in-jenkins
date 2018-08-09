@@ -19,6 +19,7 @@ pipeline {
       steps {
         echo "This is a dev or release build."
         nodejs(nodeJSInstallationName: 'node 8 latest') {
+          sh 'node --version'
           sh 'npm --version'
         }
       }
