@@ -30,11 +30,11 @@ pipeline {
         echo "build ${params.CORES} to Dev"
       }
     }
-    post {
-      always {
-        echo "I did it."
-        helloWorld name: "Sally"
-      }
+  }
+  post {
+    always {
+      echo "I did it."
+      helloWorld name: "Sally"
     }
   }
 }
