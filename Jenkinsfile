@@ -6,27 +6,35 @@ pipeline {
     string(defaultValue: "all", description: 'Which core(s)?', name: 'CORES')
   }
   stages {
-    stage('adventure') {
+    stage('build-prod') {
+      when {
+        branch 'master'
+      }
       steps {
-        echo "The branch name is $BRANCH_NAME"
-        echo params.CORES
-        helloWorld name:'Penelope'
+        echo "build ${params.CORES} to Production"
       }
     }
-    stage('build') {
+    stage('build-qa') {
       when {
-        anyOf {
-          branch 'release-*'
-          branch 'dev'
-        }
+        branch 'master'
       }
       steps {
-        echo "This is a dev or release build."
-        nodejs(nodeJSInstallationName: 'node 8 latest') {
-          sh 'node --version'
-          sh 'npm --version'
-        }
+        echo "build ${params.CORES} to QA"
       }
+    }
+    stage('build-dev') {
+      when {
+        branch 'dev'
+      }
+      steps {
+        echo "build ${params.CORES} to Dev"
+      }
+    }
+  }
+  post {
+    always {
+      echo "I did it in Release."
+      helloWorld name: "Wally"
     }
   }
 }
