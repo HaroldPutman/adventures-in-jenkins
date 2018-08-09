@@ -5,6 +5,9 @@ pipeline {
   parameters {
     string(defaultValue: "all", description: 'Which core(s)?', name: 'CORES')
   }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
   stages {
     stage('build-prod') {
       when {
@@ -28,6 +31,13 @@ pipeline {
       }
       steps {
         echo "build ${params.CORES} to Dev"
+      }
+    }
+    stage('wrapup') {
+      steps {
+        script {
+          currentBuild.description = "Built ${params.CORES}"
+        }        
       }
     }
   }
