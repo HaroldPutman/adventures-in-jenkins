@@ -16,7 +16,7 @@ pipeline {
     }
     stage('build-qa') {
       when {
-        branch 'master'
+        branch 'release-*'
       }
       steps {
         echo "build ${params.CORES} to QA"
