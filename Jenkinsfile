@@ -3,7 +3,7 @@
 stage('adventure') {
   node('linux') {
     echo "Let the adventure begin..."
-    helloWorld
+    helloWorld()
     helloWorld name:'Jenkins'
   }
 }
