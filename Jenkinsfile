@@ -1,9 +1,19 @@
-@Library('lexmarkweb-jenkins-library') _
-
-stage('adventure') {
-  node('linux') {
-    echo "Let the adventure begin..."
-    helloWorld name:'Jelly'
-    echo "Branch is ${BRANCH_NAME}"
+pipeline {
+  agent { label 'linux'}
+  stages {
+    stage('adventure') {
+      steps {
+        echo "The branch name is $BRANCH_NAME"
+        helloWorld name:'Penelope'
+      }
+    }
+    stage('build') {
+      when {
+        expression { return BRANCH_NAME ==~ /^release-/ }
+      }
+      steps {
+        echo "This is a release build."
+      }
+    }
   }
 }
