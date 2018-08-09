@@ -9,35 +9,39 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   stages {
-    stage('build-prod') {
-      when {
-        branch 'master'
-      }
-      steps {
-        echo "build ${params.CORES} to Production"
-      }
-    }
-    stage('build-qa') {
-      when {
-        branch 'master'
-      }
-      steps {
-        echo "build ${params.CORES} to QA"
-      }
-    }
-    stage('build-dev') {
-      when {
-        branch 'dev'
-      }
-      steps {
-        echo "build ${params.CORES} to Dev"
+    stage('build') {
+      stages {
+        stage('build-prod') {
+          when {
+            branch 'master'
+          }
+          steps {
+            echo "build ${params.CORES} to Production"
+          }
+        }
+        stage('build-qa') {
+          when {
+            branch 'master'
+          }
+          steps {
+            echo "build ${params.CORES} to QA"
+          }
+        }
+        stage('build-dev') {
+          when {
+            branch 'dev'
+          }
+          steps {
+            echo "build ${params.CORES} to Dev"
+          }
+        }              
       }
     }
     stage('wrapup') {
       steps {
         script {
           currentBuild.description = "Built ${params.CORES}"
-        }        
+        }
       }
     }
   }
