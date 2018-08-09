@@ -10,7 +10,7 @@ pipeline {
   }
   stages {
     stage('build') {
-      stages {
+      parallel {
         stage('build-prod') {
           when {
             branch 'master'
@@ -34,7 +34,7 @@ pipeline {
           steps {
             echo "build ${params.CORES} to Dev"
           }
-        }              
+        }
       }
     }
     stage('wrapup') {
