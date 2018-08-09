@@ -11,8 +11,10 @@ pipeline {
     }
     stage('build') {
       when {
-        branch 'release-*'
-        branch 'dev'
+        anyOf {
+          branch 'release-*'
+          branch 'dev'          
+        }
       }
       steps {
         echo "This is a dev or release build."
