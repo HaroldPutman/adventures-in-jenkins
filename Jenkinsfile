@@ -16,6 +16,12 @@ pipeline {
       steps {
         echo "This is a release build."
       }
+      when {
+        branch 'dev'
+      }
+      steps {
+        echo "This is a dev build."
+      }
     }
   }
 }
