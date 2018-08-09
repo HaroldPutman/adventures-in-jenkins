@@ -11,10 +11,16 @@ pipeline {
     }
     stage('build') {
       when {
-        branch 'release-*'
+        anyOf {
+          branch 'release-*'
+          branch 'dev'
+        }
       }
       steps {
-        echo "This is a release build."
+        echo "This is a dev or release build."
+        nodejs(nodeJSInstallationName: 'node 8 latest') {
+          sh 'npm --version'
+        }
       }
     }
   }
