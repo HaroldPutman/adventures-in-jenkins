@@ -9,6 +9,13 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   stages {
+    stage('init') {
+      steps {
+        script {
+          def cookie = "Chocolate"
+        }
+      }
+    }
     stage('build') {
       parallel {
         stage('build-prod') {
@@ -16,7 +23,7 @@ pipeline {
             branch 'master'
           }
           steps {
-            echo "build ${params.CORES} to Production"
+            echo "build ${params.CORES} to ${cookie} Production"
           }
         }
         stage('build-qa') {
@@ -24,7 +31,7 @@ pipeline {
             branch 'master'
           }
           steps {
-            echo "build ${params.CORES} to QA"
+            echo "build ${params.CORES} to ${cookie} QA"
           }
         }
         stage('build-dev') {
@@ -32,7 +39,7 @@ pipeline {
             branch 'dev'
           }
           steps {
-            echo "build ${params.CORES} to Dev"
+            echo "build ${params.CORES} to ${cookie} Dev"
           }
         }
       }
