@@ -11,7 +11,9 @@ pipeline {
   }
   stages {
     stage('init') {
-      echo "You like ${params.flavor} Ice cream"
+      steps {
+        echo "You like ${params.flavor} Ice cream"        
+      }
     }
     stage('build') {
       parallel {
@@ -49,7 +51,9 @@ pipeline {
       }
     }
     stage('final') {
-      echo "You like ${flavor} Ice cream"
+      steps {
+        echo "You like ${flavor} Ice cream"
+      }
     }
   }
   post {
