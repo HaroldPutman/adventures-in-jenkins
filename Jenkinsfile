@@ -64,20 +64,6 @@ pipeline {
           currentBuild.description = "Built ${params.CORES}"
         }
       }
-      steps {
-        echo "build ${params.CORES} to Dev"
-      }
-    }
-  }
-  post {
-    always {
-      echo "I did it in Release."
-      helloWorld name: "Wally"
-    }
-    stage('final') {
-      steps {
-        echo "Go buy yourself ${params.flavor} Ice cream"
-      }
     }
   }
   post {
