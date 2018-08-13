@@ -4,17 +4,14 @@ pipeline {
   agent { label 'linux'}
   parameters {
     string(defaultValue: "all", description: 'Which core(s)?', name: 'CORES')
+    string(defaultValue: "vanilla", description: 'Name of favorite Ice cream flavor.', name: 'flavor')
   }
   options {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   stages {
     stage('init') {
-      steps {
-        script {
-          def cookie = "Chocolate"
-        }
-      }
+      echo "You like ${params.flavor} Ice cream"
     }
     stage('build') {
       parallel {
@@ -23,7 +20,7 @@ pipeline {
             branch 'master'
           }
           steps {
-            echo "build ${params.CORES} to ${cookie} Production"
+            echo "build ${params.CORES} to Production"
           }
         }
         stage('build-qa') {
@@ -31,7 +28,7 @@ pipeline {
             branch 'master'
           }
           steps {
-            echo "build ${params.CORES} to ${cookie} QA"
+            echo "build ${params.CORES} to QA"
           }
         }
         stage('build-dev') {
@@ -39,7 +36,7 @@ pipeline {
             branch 'dev'
           }
           steps {
-            echo "build ${params.CORES} to ${cookie} Dev"
+            echo "build ${params.CORES} to Dev"
           }
         }
       }
@@ -51,11 +48,14 @@ pipeline {
         }
       }
     }
+    stage('final') {
+      echo "You like ${flavor} Ice cream"
+    }
   }
   post {
-    always {
+    success {
       echo "I did it."
-      helloWorld name: "Sally"
+      helloWorld name: "Messenger"
     }
   }
 }
