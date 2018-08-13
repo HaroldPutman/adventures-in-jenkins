@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('init') {
       steps {
-        echo "You like ${params.flavor} Ice cream"        
+        echo "If we succeed, you get ${params.flavor} Ice cream"
       }
     }
     stage('build') {
@@ -23,6 +23,11 @@ pipeline {
           }
           steps {
             echo "build ${params.CORES} to Production"
+            dir ('my-app') {
+              withMaven (maven: 'Maven Latest', jdk: 'JDK 1.8 Latest (Linux 64-bit)') {
+                sh "mvn test"
+              }
+            }
           }
         }
         stage('build-qa') {
@@ -31,6 +36,11 @@ pipeline {
           }
           steps {
             echo "build ${params.CORES} to QA"
+            dir ('my-app') {
+              withMaven (maven: 'Maven Latest', jdk: 'JDK 1.8 Latest (Linux 64-bit)') {
+                sh "mvn test"
+              }
+            }
           }
         }
         stage('build-dev') {
@@ -39,6 +49,11 @@ pipeline {
           }
           steps {
             echo "build ${params.CORES} to Dev"
+            dir ('my-app') {
+              withMaven (maven: 'Maven Latest', jdk: 'JDK 1.8 Latest (Linux 64-bit)') {
+                sh "mvn test"
+              }
+            }
           }
         }
       }
@@ -52,7 +67,7 @@ pipeline {
     }
     stage('final') {
       steps {
-        echo "You like ${flavor} Ice cream"
+        echo "Go buy yourself ${params.flavor} Ice cream"
       }
     }
   }
