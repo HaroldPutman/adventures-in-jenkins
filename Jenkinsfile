@@ -70,7 +70,7 @@ pipeline {
         script {
           DATE_TAG = java.time.LocalDate.now().replaceAll('-', '')
         }
-        echo "I would tag it ${env.BRANCH_NAME}-${DATE_TAG} here."
+        echo "I would tag it ${env.BRANCH_NAME}-${DATE_TAG}.${env.BUILD_NUMBER} here."
       }
     }
   }
