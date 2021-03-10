@@ -28,8 +28,8 @@ pipeline {
                 sh "mvn test"
               }
             }
-            sh "git tag -a blargo3 -m \"Tagged by Jenkins\""
-            sh "git push --tags"
+            sh "git tag -a ${env.BRANCH_NAME}-${env.BUILD_NUMBER} -m \"Tagged by Jenkins\""
+            // sh "git push --tags"
           }
         }
         stage('build-qa') {
