@@ -63,6 +63,8 @@ pipeline {
     stage('wrapup') {
       steps {
         script {
+          def causes = currentBuild.getBuildCauses()
+          echo causes
           currentBuild.description = "Built ${params.CORES}"
         }
       }
@@ -70,7 +72,7 @@ pipeline {
   }
   post {
     success {
-      echo "I did it."
+      echo "I did it. CHANGE_ID: ${env.CHANGE_ID}"
       helloWorld name: "Messenger"
     }
   }
