@@ -61,24 +61,10 @@ pipeline {
       }
     }
     stage('wrapup') {
+      when { expression { currentrBuild.chageSets.size() > 0 } }
       steps {
-        script {
-          def causeClass = currentBuild?.getBuildCauses()[0]?._class
-          def desc = currentBuild?.getBuildCauses()[0]?.shortDescription
-          def user = currentBuild?.getBuildCauses()[0]?.userId
-          def changes = currentBuild.changeSets.size()
-          echo "Cause class: ${causeClass}"
-          echo "Short Description: ${desc}"
-          echo "User id: ${user}"
-          echo "Changes: ${changes}"
-          currentBuild.description = "Built ${params.CORES}"
-        }
+        echo "I would tag it here."
       }
-    }
-  }
-  post {
-    success {
-      helloWorld name: "Messenger"
     }
   }
 }
