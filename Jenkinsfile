@@ -61,7 +61,7 @@ pipeline {
       }
     }
     stage('wrapup') {
-      when { expression { currentrBuild.chageSets.size() > 0 } }
+      when { expression { currentBuild.changeSets.size() > 0 } }
       steps {
         echo "I would tag it here."
       }
