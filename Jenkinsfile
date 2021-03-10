@@ -28,7 +28,7 @@ pipeline {
                 sh "mvn test"
               }
             }
-            sh "git tag -a blargo -m \"Tagged by Jenkins\""
+            sh "git tag -a blargo3 -m \"Tagged by Jenkins\""
             sh "git push --tags"
           }
         }
