@@ -61,9 +61,16 @@ pipeline {
       }
     }
     stage('wrapup') {
-      when { expression { currentBuild.changeSets.size() > 0 } }
+      when { allOf {
+        branch 'cause';
+        expression { currentBuild.changeSets.size() > 0 }
+        }
+      }
       steps {
-        echo "I would tag it here."
+        script {
+          DATE_TAG = java.time.LocalDate.now()
+        }
+        echo "I would tag it ${env.BRANCH_NAME}-${DATE_TAG} here."
       }
     }
   }
