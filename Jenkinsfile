@@ -10,7 +10,7 @@ pipeline {
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
   triggers {
-    cron( "H/20 * * * *" )
+    cron( "H/5 * * * *" )
   }
 
   stages {
@@ -71,10 +71,12 @@ pipeline {
           def causeClass = currentBuild?.getBuildCauses()[0]?._class
           def desc = currentBuild?.getBuildCauses()[0]?.shortDescription
           def user = currentBuild?.getBuildCauses()[0]?.userId
+          def changes = currentBuild.changeSets.size()
           echo event
           echo "Cause class: ${causeClass}"
           echo "Short Description: ${desc}"
           echo "User id: ${user}"
+          echo "Changes: ${changes}"
           currentBuild.description = "Built ${params.CORES}"
         }
       }
