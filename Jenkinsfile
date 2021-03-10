@@ -70,7 +70,7 @@ pipeline {
   }
   post {
     success {
-      echo "I did it."
+      echo "I did it. ${env.CHANGE_ID}"
       helloWorld name: "Messenger"
     }
   }
