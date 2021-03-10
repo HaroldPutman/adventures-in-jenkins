@@ -64,7 +64,7 @@ pipeline {
       steps {
         script {
           def causes = currentBuild.getBuildCauses()
-          echo causes
+          echo causes.join(", ")
           currentBuild.description = "Built ${params.CORES}"
         }
       }
