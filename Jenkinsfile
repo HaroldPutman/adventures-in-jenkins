@@ -63,12 +63,10 @@ pipeline {
     stage('wrapup') {
       steps {
         script {
-          def event = currentBuild?.getBuildCauses()[0]?.event?.event?.toString()
           def causeClass = currentBuild?.getBuildCauses()[0]?._class
           def desc = currentBuild?.getBuildCauses()[0]?.shortDescription
           def user = currentBuild?.getBuildCauses()[0]?.userId
           def changes = currentBuild.changeSets.size()
-          echo event
           echo "Cause class: ${causeClass}"
           echo "Short Description: ${desc}"
           echo "User id: ${user}"
