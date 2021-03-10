@@ -63,8 +63,10 @@ pipeline {
     stage('wrapup') {
       steps {
         script {
-          def causes = currentBuild.getBuildCauses()
-          // echo causes.toString(2)
+          def event = currentBuild?.getBuildCauses()[0]?.event?.event?.toString()
+          def causeClass = currentBuild?.getBuildCauses()[0]?._class
+          echo event
+          echo "Cause bye ${causeClass}"
           currentBuild.description = "Built ${params.CORES}"
         }
       }
@@ -72,7 +74,6 @@ pipeline {
   }
   post {
     success {
-      echo "I did it Two. CHANGE_ID: ${env.CHANGE_ID}"
       helloWorld name: "Messenger"
     }
   }
